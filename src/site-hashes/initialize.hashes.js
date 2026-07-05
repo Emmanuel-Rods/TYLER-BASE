@@ -4,6 +4,7 @@ const path = require("path");
 // Import your functions from the other files in the same directory
 const { fetchSecondaryData } = require("./secondary.data.js");
 const { fetchStatusIds } = require("./status.ids.js");
+const { base } = require("../../config.js");
 
 async function initHashes(base) {
   // Define paths to the target files (Up two levels to root, then site.data)
@@ -32,4 +33,4 @@ async function initHashes(base) {
   console.log("Site data check complete.");
 }
 
-module.exports = { initHashes };
+initHashes(base);
