@@ -8,9 +8,10 @@ const cleanJsonFiles = require("./src/utils/cleaner.js");
 const cleanupFolders = require("./src/utils/deleteFolders.js");
 const loadJson = require("./src/utils/load.js");
 
-// making sure the files exits
-const statusIds = loadJson("./site.data/status.ids.json");
-const secondaryIds = loadJson("./site.data/secondary.data.json");
+const {
+  validateStatuses,
+  validatePermitTypes,
+} = require("./src/utils/validate.config.js");
 
 // configs
 const {
@@ -19,6 +20,14 @@ const {
   requiredStatuses,
   requiredSecondaryData,
 } = require("./config.js");
+
+// making sure the files exits
+const statusIds = loadJson("./site.data/status.ids.json");
+const secondaryIds = loadJson("./site.data/secondary.data.json");
+
+//validate the the contents of the array matches with the files
+validatePermitTypes(secondaryIds, requiredSecondaryData);
+validateStatuses(statusIds, requiredStatuses);
 
 function getStatusByName(jsonData, targetName) {
   return jsonData.Result?.find((item) => item.Name === targetName) || null;
